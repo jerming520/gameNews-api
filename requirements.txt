@@ -1,0 +1,15 @@
+# FastAPI 後端框架
+fastapi==0.141.1
+# 
+# API 伺服器
+uvicorn==0.54.0
+# 
+# MySQL 資料庫連線
+mysql-connector-python==26.7.0
+# 
+# 讀取 .env 環境變數
+python-dotenv==1.2.3
+# 
+# Python 網頁爬蟲
+requests==2.34.2
+beautifulsoup4==4.15.0

@@ -1,0 +1,14 @@
+# 環境變數及密碼
+.env
+.env.*
+# 
+# Python 虛擬環境
+.venv/
+venv/
+# 
+# Python 快取
+__pycache__/
+*.pyc
+# 
+# VS Code 設定
+.vscode/
