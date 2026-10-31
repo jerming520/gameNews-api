@@ -4,13 +4,18 @@ from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
 import os
 from dotenv import load_dotenv
+
 #
 load_dotenv()
 db = mysql.connector.connect(
     host=os.getenv("DB_HOST"),
+    port=int(os.getenv("DB_PORT", "4000")),
     user=os.getenv("DB_USER"),
     password=os.getenv("DB_PASSWORD"),
-    database=os.getenv("DB_NAME")
+    database=os.getenv("DB_NAME"),
+    ssl_ca=os.path.abspath("isrgrootx1.pem"),
+    ssl_verify_cert=True,
+    ssl_verify_identity=True,
 )
 #
 app = FastAPI()
@@ -21,14 +26,20 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
 #
 class MessageCreate(BaseModel):
     name: str
     content: str
+
+
 #
 @app.get("/")
 def read_root():
     return {"message": "GameNews API is running"}
+
+
 #
 @app.post("/messages")
 def create_message(message: MessageCreate):
@@ -37,7 +48,9 @@ def create_message(message: MessageCreate):
     values = (message.name, message.content)
     cursor.execute(sql, values)
     db.commit()
-    return {"message": "留言接收成功", "data": message}
+    return {"message": "留言新增成功", "data": message}
+
+
 #
 @app.get("/messages")
 def get_messages():
@@ -45,7 +58,9 @@ def get_messages():
     sql = "SELECT * FROM messages"
     cursor.execute(sql)
     messages = cursor.fetchall()
-    return {"message": "取得留言成功", "data": messages}
+    return {"message": "留言取得成功", "data": messages}
+
+
 #
 @app.delete("/messages/{message_id}")
 def delete_message(message_id: int):

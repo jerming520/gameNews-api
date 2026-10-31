@@ -101,6 +101,7 @@ function handleClick(e) {
 }
 document.addEventListener("click", handleClick);
 ////////////////Message/////////////////
+const API_BASE = "http://127.0.0.1:8000";
 const sendBtn = document.getElementById("sendBtn");
 const nameInput = document.getElementById("name");
 const contentInput = document.getElementById("content");
@@ -112,7 +113,7 @@ function postMessage() {
   console.log(name);
   console.log(content);
   //
-  fetch("http://127.0.0.1:8000/messages", {
+  fetch(`${API_BASE}/messages`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -131,7 +132,7 @@ function postMessage() {
 sendBtn.addEventListener("click", postMessage);
 //DELETE
 function deleteMessage(messageId, p) {
-  fetch(`http://127.0.0.1:8000/messages/${messageId}`, {
+  fetch(`${API_BASE}/messages/${messageId}`, {
     method: "DELETE",
   })
     .then((response) => response.json())
@@ -143,7 +144,7 @@ function deleteMessage(messageId, p) {
 //GET
 function loadMessages() {
   messageList.innerHTML = "";
-  fetch("http://127.0.0.1:8000/messages")
+  fetch(`${API_BASE}/messages`)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -166,18 +167,6 @@ function loadMessages() {
 }
 loadMessages();
 /*
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
