@@ -39,28 +39,34 @@ def read_root():
 #
 @app.post("/messages")
 def create_message(message: MessageCreate):
+    db.ping(reconnect=True, attempts=3, delay=2)
     cursor = db.cursor()
     sql = "INSERT INTO messages (name, content) VALUES (%s, %s)"
     values = (message.name, message.content)
     cursor.execute(sql, values)
     db.commit()
+    cursor.close()
     return {"message": "留言新增成功", "data": message}
 #
 @app.get("/messages")
 def get_messages():
+    db.ping(reconnect=True, attempts=3, delay=2)
     cursor = db.cursor()
     sql = "SELECT * FROM messages"
     cursor.execute(sql)
     messages = cursor.fetchall()
+    cursor.close()
     return {"message": "留言取得成功", "data": messages}
 #
 @app.delete("/messages/{message_id}")
 def delete_message(message_id: int):
+    db.ping(reconnect=True, attempts=3, delay=2)
     cursor = db.cursor()
     sql = "DELETE FROM messages WHERE id = %s"
     values = (message_id,)
     cursor.execute(sql, values)
     db.commit()
+    cursor.close()
     return {"message": "留言刪除成功", "id": message_id}
 # 
 # 
