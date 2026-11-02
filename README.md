@@ -7,7 +7,7 @@ News data is crawled from multiple game news websites with Python, stored as JSO
 ---
 ##Demo
 
-https://jerming520.github.io/gameNews-event/
+https://jerming520.github.io/gameNews-api/
 
 ---
 ## Features
