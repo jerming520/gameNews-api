@@ -101,7 +101,8 @@ function handleClick(e) {
 }
 document.addEventListener("click", handleClick);
 ////////////////Message/////////////////
-const API_BASE = "http://127.0.0.1:8000";
+// const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = "https://gamenews-api-0vp2.onrender.com";
 const sendBtn = document.getElementById("sendBtn");
 const nameInput = document.getElementById("name");
 const contentInput = document.getElementById("content");

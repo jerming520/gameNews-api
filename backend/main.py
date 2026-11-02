@@ -4,7 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
 import os
 from dotenv import load_dotenv
-
 #
 load_dotenv()
 db = mysql.connector.connect(
@@ -21,25 +20,22 @@ db = mysql.connector.connect(
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5502"],
+    allow_origins=[
+        "http://127.0.0.1:5502",
+        "https://jerming520.github.io",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
 #
 class MessageCreate(BaseModel):
     name: str
     content: str
-
-
 #
 @app.get("/")
 def read_root():
     return {"message": "GameNews API is running"}
-
-
 #
 @app.post("/messages")
 def create_message(message: MessageCreate):
@@ -49,8 +45,6 @@ def create_message(message: MessageCreate):
     cursor.execute(sql, values)
     db.commit()
     return {"message": "留言新增成功", "data": message}
-
-
 #
 @app.get("/messages")
 def get_messages():
@@ -59,8 +53,6 @@ def get_messages():
     cursor.execute(sql)
     messages = cursor.fetchall()
     return {"message": "留言取得成功", "data": messages}
-
-
 #
 @app.delete("/messages/{message_id}")
 def delete_message(message_id: int):
@@ -70,3 +62,11 @@ def delete_message(message_id: int):
     cursor.execute(sql, values)
     db.commit()
     return {"message": "留言刪除成功", "id": message_id}
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
